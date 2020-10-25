@@ -34,10 +34,8 @@ public class KidMathView extends JFrame {
 	private JLabel lblOperator;
 	
 	 int value1;
-	  
-	  int value2;
-	  
-	  boolean isIncorrect;
+	 int value2;
+	 MathOperator operator;
 
 	/**
 	 * Launch the application.
@@ -103,7 +101,7 @@ public class KidMathView extends JFrame {
 	            if (correctAnswer == inputAnswer) {
 	              lblStatement.setText("Sophie is correct");
 	              lblStatement.setForeground(Color.GREEN);
-	              refresh(MathOperator.ADD);
+	              refresh();
 	              JOptionPane.showMessageDialog(null, lblStatement);
 //	              KidMathView.this.lblFeedback.setText("Correct!");
 //	              KidMathView.this.lblFeedback.setForeground(Color.GREEN);
@@ -165,26 +163,34 @@ public class KidMathView extends JFrame {
 					.addGap(107))
 		);
 		contentPane.setLayout(gl_contentPane);
-		refresh(MathOperator.ADD);
+		refresh();
 	}
-	  private void refresh(MathOperator operator) {
-		    value1 = (int )Math.floor(Math.random() * 25);
+	  private void refresh() {
+		    value1 = (int )Math.floor(Math.random() * 31);
 		    value1 = value1 < 10 ? value1 + 10 : value1;
-		    value2 = (int) Math.floor(Math.random() * 25);
+		    value2 = (int) Math.floor(Math.random() * 31);
 		    value2 = value2 < 10 ? value2 + 10 : value2;
 		    
 		    lblValue1.setText(value1 + "");
 		    lblValue2.setText(value2 + "");
 		    textFieldAnswer.setText("");
-		    //lblFeedback.setText("");
-		    if (operator == MathOperator.ADD) {
+
+		    // return random value between 1 and 4
+		    int operatorValue =(int) Math.floor((Math.random() * 4) + 1);
+		    if (operatorValue == 1) {
+		    	// 1 represents addition
 		      lblOperator.setText("+");
-		    } else if (operator == MathOperator.SUBTRACT) {
+		      operator = MathOperator.ADD;
+		    } else if (operatorValue == 2) {
+		    	// 2 represents subtraction
 		      lblOperator.setText("-");
-		    } else if (operator == MathOperator.DIVISION) {
+		      operator = MathOperator.SUBTRACT;
+		    } else if (operatorValue == 3) {
 		      lblOperator.setText("/");
-		    } else if (operator == MathOperator.MULTIPLICATION) {
+		      operator = MathOperator.DIVISION;
+		    } else if (operatorValue == 4) {
 		      lblOperator.setText("*");
+		      operator = MathOperator.MULTIPLICATION;
 		    } 
 		  }
 		  
