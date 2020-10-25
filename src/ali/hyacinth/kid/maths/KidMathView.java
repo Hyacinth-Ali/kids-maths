@@ -111,6 +111,7 @@ public class KidMathView extends JFrame {
 	            } else {
 	              lblStatement.setText("Sophie is wrong, try again");
 	              lblStatement.setForeground(Color.RED);
+	              JOptionPane.showMessageDialog(null, lblStatement);
 //	              KidMathView.this.lblFeedback.setText("Wrong!");
 //	              KidMathView.this.lblFeedback.setForeground(Color.RED);
 //	              KidMathView.this.lblStatement.setForeground(Color.RED);
