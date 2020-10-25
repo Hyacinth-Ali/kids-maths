@@ -90,7 +90,7 @@ public class KidMathView extends JFrame {
 		JButton btnCheck = new JButton("CHECK");
 		btnCheck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int correctAnswer = solve(MathOperator.ADD, value1, value2);
+				int correctAnswer = solve(operator, value1, value2);
 	            String input = textFieldAnswer.getText();
 	            int inputAnswer = 0;
 	            try {
