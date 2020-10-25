@@ -34,10 +34,8 @@ public class KidMathView extends JFrame {
 	private JLabel lblOperator;
 	
 	 int value1;
-	  
-	  int value2;
-	  
-	  boolean isIncorrect;
+	 int value2;
+	 MathOperator operator;
 
 	/**
 	 * Launch the application.
@@ -92,7 +90,7 @@ public class KidMathView extends JFrame {
 		JButton btnCheck = new JButton("CHECK");
 		btnCheck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int correctAnswer = solve(MathOperator.ADD, value1, value2);
+				int correctAnswer = solve(operator, value1, value2);
 	            String input = textFieldAnswer.getText();
 	            int inputAnswer = 0;
 	            try {
@@ -103,7 +101,7 @@ public class KidMathView extends JFrame {
 	            if (correctAnswer == inputAnswer) {
 	              lblStatement.setText("Sophie is correct");
 	              lblStatement.setForeground(Color.GREEN);
-	              refresh(MathOperator.ADD);
+	              refresh();
 	              JOptionPane.showMessageDialog(null, lblStatement);
 //	              KidMathView.this.lblFeedback.setText("Correct!");
 //	              KidMathView.this.lblFeedback.setForeground(Color.GREEN);
@@ -165,27 +163,49 @@ public class KidMathView extends JFrame {
 					.addGap(107))
 		);
 		contentPane.setLayout(gl_contentPane);
-		refresh(MathOperator.ADD);
+		refresh();
 	}
-	  private void refresh(MathOperator operator) {
-		    value1 = (int )Math.floor(Math.random() * 25);
+	  private void refresh() {
+		    value1 = (int )Math.floor(Math.random() * 31);
 		    value1 = value1 < 10 ? value1 + 10 : value1;
-		    value2 = (int) Math.floor(Math.random() * 25);
+		    value2 = (int) Math.floor(Math.random() * 31);
 		    value2 = value2 < 10 ? value2 + 10 : value2;
+		    
+		    // return random value between 1 and 4
+		    int operatorValue =(int) Math.floor((Math.random() * 4) + 1);
+		    if (operatorValue == 1) {
+		    	// 1 represents addition
+		      lblOperator.setText("+");
+		      operator = MathOperator.ADD;
+		    } else if (operatorValue == 2) {
+		    	// 2 represents subtraction
+		      lblOperator.setText("-");
+		      operator = MathOperator.SUBTRACT;
+		      int temp = 0;
+		      if (value1 < value2) {
+		    	  temp = value1;
+		    	  value1 = value2;
+		    	  value2 = temp;
+		      }
+		    } else if (operatorValue == 3) {
+		      lblOperator.setText("/");
+		      operator = MathOperator.DIVISION;
+		      
+		      value1 = (int )Math.floor((Math.random() * 5) + 1);
+			  value2 = (int) Math.floor((Math.random() * 5) + 1);
+			  value1 = value1 * value2;
+			  
+		    } else if (operatorValue == 4) {
+		      lblOperator.setText("*");
+		      operator = MathOperator.MULTIPLICATION;
+		      
+		      value1 = (int )Math.floor(Math.random() * 11);
+			  value2 = (int) Math.floor(Math.random() * 11);
+		    } 
 		    
 		    lblValue1.setText(value1 + "");
 		    lblValue2.setText(value2 + "");
 		    textFieldAnswer.setText("");
-		    //lblFeedback.setText("");
-		    if (operator == MathOperator.ADD) {
-		      lblOperator.setText("+");
-		    } else if (operator == MathOperator.SUBTRACT) {
-		      lblOperator.setText("-");
-		    } else if (operator == MathOperator.DIVISION) {
-		      lblOperator.setText("/");
-		    } else if (operator == MathOperator.MULTIPLICATION) {
-		      lblOperator.setText("*");
-		    } 
 		  }
 		  
 		  private int solve(MathOperator operator, int value1, int value2) {
