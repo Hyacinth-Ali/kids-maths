@@ -171,10 +171,6 @@ public class KidMathView extends JFrame {
 		    value2 = (int) Math.floor(Math.random() * 31);
 		    value2 = value2 < 10 ? value2 + 10 : value2;
 		    
-		    lblValue1.setText(value1 + "");
-		    lblValue2.setText(value2 + "");
-		    textFieldAnswer.setText("");
-
 		    // return random value between 1 and 4
 		    int operatorValue =(int) Math.floor((Math.random() * 4) + 1);
 		    if (operatorValue == 1) {
@@ -185,13 +181,31 @@ public class KidMathView extends JFrame {
 		    	// 2 represents subtraction
 		      lblOperator.setText("-");
 		      operator = MathOperator.SUBTRACT;
+		      int temp = 0;
+		      if (value1 < value2) {
+		    	  temp = value1;
+		    	  value1 = value2;
+		    	  value2 = temp;
+		      }
 		    } else if (operatorValue == 3) {
 		      lblOperator.setText("/");
 		      operator = MathOperator.DIVISION;
+		      
+		      value1 = (int )Math.floor((Math.random() * 5) + 1);
+			  value2 = (int) Math.floor((Math.random() * 5) + 1);
+			  value1 = value1 * value2;
+			  
 		    } else if (operatorValue == 4) {
 		      lblOperator.setText("*");
 		      operator = MathOperator.MULTIPLICATION;
+		      
+		      value1 = (int )Math.floor(Math.random() * 11);
+			  value2 = (int) Math.floor(Math.random() * 11);
 		    } 
+		    
+		    lblValue1.setText(value1 + "");
+		    lblValue2.setText(value2 + "");
+		    textFieldAnswer.setText("");
 		  }
 		  
 		  private int solve(MathOperator operator, int value1, int value2) {
